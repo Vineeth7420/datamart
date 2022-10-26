@@ -1,7 +1,7 @@
 # write a function that takes all the necessary info, read data from mysql and return a df
 
 def read_from_mysql(app_conf, app_secret, spark):
-    jdbc_params = {"url": get_mysql_jdbc_url(app_secret),
+    jdbc_params = {"URL": get_mysql_jdbc_url(app_secret),
                    "lowerBound": "1",
                    "upperBound": "100",
                    "dbtable": app_conf["mysql_conf"]["dbtable"],
