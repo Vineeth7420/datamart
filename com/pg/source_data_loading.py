@@ -55,7 +55,7 @@ if __name__ == '__main__':
                 .options(**jdbc_params) \
                 .load()
 
-            txn_df.withColumn('ins_dt', current_date())
+            txn_df = txn_df.withColumn('ins_dt', current_date())
             txn_df.show()
 
             txn_df.write \
