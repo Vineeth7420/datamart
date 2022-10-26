@@ -1,6 +1,12 @@
 # write a function that takes all the necessary info, read data from mysql and return a df
 
 def read_from_mysql(app_conf, app_secret, spark):
+    def get_mysql_jdbc_url(mysql_config: dict):
+        host = mysql_config["mysql_conf"]["hostname"]
+        port = mysql_config["mysql_conf"]["port"]
+        database = mysql_config["mysql_conf"]["database"]
+        return "jdbc:mysql://{}:{}/{}?autoReconnect=true&useSSL=false".format(host, port, database)
+
     jdbc_params = {"url": get_mysql_jdbc_url(app_secret),
                    "lowerBound": "1",
                    "upperBound": "100",
@@ -73,8 +79,3 @@ def get_redshift_jdbc_url(redshift_config: dict):
     return "jdbc:redshift://{}:{}/{}?user={}&password={}".format(host, port, database, username, password)
 
 
-def get_mysql_jdbc_url(mysql_config: dict):
-    host = mysql_config["mysql_conf"]["hostname"]
-    port = mysql_config["mysql_conf"]["port"]
-    database = mysql_config["mysql_conf"]["database"]
-    return "jdbc:mysql://{}:{}/{}?autoReconnect=true&useSSL=false".format(host, port, database)
