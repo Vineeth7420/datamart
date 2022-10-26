@@ -31,7 +31,7 @@ def read_from_sftp(spark, app_conf, app_secret, path):
         .option('username', app_secret['sftp_conf']['username']) \
         .option('pem', path) \
         .option('fileType', 'csv') \
-        .load(app_conf['sftp_conf']['directory'] + app_conf['filename'])
+        .load(app_conf['sftp_conf']['directory'] + app_conf['file_name'])
 
     return df
 
