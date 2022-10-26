@@ -4,7 +4,7 @@
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
-import utils.utils as ut
+import com.pg.utils.utils as ut
 import yaml
 import os.path
 from pyspark.sql.types import StructType, IntegerType, BooleanType,DoubleType
