@@ -94,3 +94,5 @@ if __name__ == '__main__':
                 .partitionBy('ins_dt') \
                 .parquet("s3a://" + app_conf['s3_conf']['s3_bucket'] + '/' + app_conf['s3_conf']['staging_dir'] + '/' + src)
 
+# spark-submit --packages "org.apache.hadoop:hadoop-aws:2.7.4,org.mongodb.spark:mongo-spark-connector_2.11:2.4.1,mysql:mysql-connector-java:8.0.15,com.springml:spark-sftp_2.11:1.1.1" com/pg/source_data_loading.py
+
