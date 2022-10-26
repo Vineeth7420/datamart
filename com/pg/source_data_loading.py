@@ -36,8 +36,24 @@ if __name__ == '__main__':
         src_conf = app_conf[src]
         if src == 'SB':
             # Read from mysql db
-            txn_df = ut.read_from_mysql(src_conf, app_secret, spark) \
-                .withColumn('ins_dt', current_date())
+            # txn_df = ut.read_from_mysql(src_conf, app_secret, spark) \
+            #     .withColumn('ins_dt', current_date())
+            jdbc_params = {"url": ut.get_mysql_jdbc_url(app_secret),
+                           "lowerBound": "1",
+                           "upperBound": "100",
+                           "dbtable": src_conf["mysql_conf"]["dbtable"],
+                           "numPartitions": "2",
+                           "partitionColumn": src_conf["mysql_conf"]["partition_column"],
+                           "user": app_secret["mysql_conf"]["username"],
+                           "password": app_secret["mysql_conf"]["password"]
+                           }
+
+            print("\nReading data from MySQL DB using SparkSession.read.format(),")
+            txn_df = spark \
+                .read.format("jdbc") \
+                .option("driver", "com.mysql.cj.jdbc.Driver") \
+                .options(**jdbc_params) \
+                .load()
 
             txn_df.show()
 
