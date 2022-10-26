@@ -55,10 +55,11 @@ if __name__ == '__main__':
                 .options(**jdbc_params) \
                 .load()
 
+            txn_df.withColumn('ins_dt', current_date())
             txn_df.show()
 
             txn_df.write \
-                .mode('append') \
+                .mode('overwrite') \
                 .partitionBy('ins_dt') \
                 .parquet("s3a://" + app_conf['s3_conf']['s3_bucket'] + '/' + app_conf['s3_conf']['staging_dir'] + '/' + src)
 
